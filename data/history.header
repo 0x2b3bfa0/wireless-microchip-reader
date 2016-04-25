@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lector de microchip</title>
+    <meta charset="utf-8" /> 
+  </head>
+
+  <body>
+    <script>
+      function ajaxRequest() {
+       var activexmodes=["Msxml2.XMLHTTP", "Microsoft.XMLHTTP"]
+
+       if (window.ActiveXObject) {
+        for (var i=0; i<activexmodes.length; i++) {
+         try { return new ActiveXObject(activexmodes[i]) } catch(e) {}
+        }
+       }
+       else if (window.XMLHttpRequest)
+        return new XMLHttpRequest()
+       else
+        return false
+      }
+
+      var http=new ajaxRequest();
+
+      http.onreadystatechange=function() {
+        if (http.readyState==4){
+            window.location.reload();
+        }
+      }
+
+      function request(value) {
+        if (confirm('¿Quieres BORRAR todos los DATOS?')) {
+          http.open("GET", "/c", true);
+          http.send(null);
+        }
+      }
+
+
+    </script>
+    <h4><a href="/">Atrás</a> | <a href="#" onclick="request();">Borrar</a> | <a href="/memory.txt">Exportar</a></h4>
+    <pre><code>
